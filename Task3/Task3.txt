@@ -1,0 +1,10 @@
+1. Запрос, который возвращает интервалы для одинаковых Id:
+
+WITH CTE AS (
+    SELECT Id, Dt, LAG(Dt) OVER (PARTITION BY Id ORDER BY Dt) AS PrevDt
+    FROM Dates
+)
+SELECT
+    Id, PrevDt AS StartDate, Dt AS EndDate
+FROM CTE
+WHERE PrevDt IS NOT NULL;

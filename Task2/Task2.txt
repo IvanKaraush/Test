@@ -1,0 +1,27 @@
+1. Запрос, который возвращает наименование клиентов и кол-во контактов
+клиентов
+
+SELECT
+    c.ClientName,
+    COUNT(cc.Id) AS ContactCount
+FROM
+    Clients c
+LEFT JOIN
+    ClientContacts cc ON c.Id = cc.ClientId
+GROUP BY
+    c.ClientName;
+
+
+
+2. Запрос, который возвращает список клиентов, у которых есть более 2 контактов:
+
+SELECT
+    c.ClientName
+FROM
+    Clients c
+JOIN
+    ClientContacts cc ON c.Id = cc.ClientId
+GROUP BY
+    c.ClientName
+HAVING
+    COUNT(cc.Id) > 2;
